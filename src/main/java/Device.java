@@ -1,26 +1,25 @@
 import java.io.Serializable;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Device implements Serializable {
     String name = null;
-    boolean on = false;
+    boolean enabled = false;
     float usingElectricity = 0;
+    //Історія використання енергії
+    List<Float> history = new ArrayList<Float>();
 
     public String getName() {
         return name;
     }
-
-    public boolean isOn() {
-        return on;
+    public boolean isEnabled() {
+        return enabled;
     }
-
-    List<Float> history;
+    public void toggleEnabled() {
+        enabled = !enabled;
+    }
     void updateHistory()
     {
         history.add(usingElectricity);
-    }
-
-    public void onOff() {
-        on = !on;
     }
 }
