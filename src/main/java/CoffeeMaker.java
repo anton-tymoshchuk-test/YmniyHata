@@ -1,12 +1,7 @@
 public class CoffeeMaker extends Device {
-    private String name;
     private int coffeeType;
     private int sugarPercent;
     private boolean hasMilk;
-
-    public String getName() {
-        return name;
-    }
 
     public int getCoffeeType() {
         return coffeeType;

@@ -1,18 +1,8 @@
 import java.awt.*;
 
 public class Fridge extends Device {
-    private String name;
-    private boolean on;
     private boolean open;
     private int temperature;
-
-    public String getName() {
-        return name;
-    }
-
-    public boolean isOn() {
-        return on;
-    }
 
     public boolean isOpen() {
         return open;
@@ -24,10 +14,6 @@ public class Fridge extends Device {
 
     public Fridge() {
         name = "Fridge";
-    }
-
-    public void onOff() {
-        on = !on;
     }
 
     public void openClose() {
