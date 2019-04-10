@@ -2,9 +2,9 @@ import java.io.Serializable;
         import java.util.List;
 
 public abstract class Device implements Serializable {
-    String name;
-    boolean on;
-    float usingElecticity;
+    String name = null;
+    boolean on = false;
+    float usingElecticity = 0;
 
     public String getName() {
         return name;
