@@ -1,15 +1,21 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Main {
-    public static void Main(String[] args) {
-        List<Device> devices = new ArrayList<Device>(){{ add(new Fridge()); }};
+    static List<Device> devices = new ArrayList<Device>(){{ add(new Fridge()); }};
+    public static void Main(String[] args){
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                for (Device device: devices){
+                    device.updateHistory();
+                    //super secret function -> writeData(device)
+                }
 
-
-
-        //timer
-        //{
-        devices.get(0).updateHistory();
-        //}
+            }
+        }, 5000, 5000);
     }
 }
