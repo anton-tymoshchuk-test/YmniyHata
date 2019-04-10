@@ -4,7 +4,7 @@ import java.io.Serializable;
 public abstract class Device implements Serializable {
     String name = null;
     boolean on = false;
-    float usingElecticity = 0;
+    float usingElectricity = 0;
 
     public String getName() {
         return name;
@@ -17,7 +17,7 @@ public abstract class Device implements Serializable {
     List<Float> history;
     void updateHistory()
     {
-        history.add(usingElecticity);
+        history.add(usingElectricity);
     }
 
     public void onOff() {
