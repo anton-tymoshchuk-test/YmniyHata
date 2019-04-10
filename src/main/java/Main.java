@@ -1,7 +1,8 @@
-public class Main
-{
-    public static void Main(String[] args)
-    {
-        System.out.println("aaa");
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void Main(String[] args) {
+        List<Device> devices = new ArrayList<Device>(){{ add(new Fridge()); }};
     }
 }
