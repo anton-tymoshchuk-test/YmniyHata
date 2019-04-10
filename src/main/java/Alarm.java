@@ -1,6 +1,6 @@
 public class Alarm extends Device {
-    private int hours;
-    private int minutes;
+    private int hours = 0;
+    private int minutes = 0;
 
     public int getHours() {
         return hours;

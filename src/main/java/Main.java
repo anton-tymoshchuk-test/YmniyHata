@@ -10,7 +10,7 @@ public class Main {
         add(new Alarm());
         add(new CoffeeMaker());
     }};
-    
+
     public static void Main(String[] args){
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {

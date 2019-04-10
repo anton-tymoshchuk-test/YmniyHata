@@ -1,8 +1,8 @@
 import java.awt.*;
 
 public class Fridge extends Device {
-    private boolean open;
-    private int temperature;
+    private boolean open = false;
+    private int temperature = 0;
 
     public boolean isOpen() {
         return open;

@@ -1,7 +1,7 @@
 public class CoffeeMaker extends Device {
-    private int coffeeType;
-    private int sugarPercent;
-    private boolean hasMilk;
+    private int coffeeType = 1;
+    private int sugarPercent = 0;
+    private boolean hasMilk = false;
 
     public int getCoffeeType() {
         return coffeeType;
