@@ -1,5 +1,5 @@
 import java.io.Serializable;
-import java.util.List;
+        import java.util.List;
 
 public abstract class Device implements Serializable {
     float usingElecticity;
