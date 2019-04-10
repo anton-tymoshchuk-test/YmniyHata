@@ -4,7 +4,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Main {
-    static List<Device> devices = new ArrayList<Device>(){{ add(new Fridge()); }};
+    static List<Device> devices = new ArrayList<Device>()
+    {{
+        add(new Fridge());
+        add(new Alarm());
+        add(new CoffeeMaker());
+    }};
+    
     public static void Main(String[] args){
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
