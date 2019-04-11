@@ -1,5 +1,7 @@
 package Devices;
 
+import java.util.Random;
+
 // Плита
 public class Stove extends Device {
     private boolean open = false;
@@ -20,6 +22,16 @@ public class Stove extends Device {
     public Stove(String id, String name) {
         this.name = name;
         this.identificator = id;
+    }
+
+    public void randomizeData() {
+        if (!enabled) {
+            open = false;
+            temperature = 0;
+        }
+        Random random = new Random();
+        open = true;
+        temperature = random.nextInt(400) + 100;
     }
 
     public void openClose() {

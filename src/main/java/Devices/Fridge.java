@@ -1,5 +1,7 @@
 package Devices;
 
+import java.util.Random;
+
 public class Fridge extends Device {
     private boolean open = false;
     private int temperature = 0;
@@ -12,16 +14,28 @@ public class Fridge extends Device {
         return temperature;
     }
 
-    private Fridge(){}
-    public Fridge(String id)
-    {
+    private Fridge() {
+    }
+
+    public Fridge(String id) {
         name = "Fridge";
         this.identificator = id;
     }
-    public Fridge(String id,String name)
-    {
+
+    public Fridge(String id, String name) {
         this.name = name;
         this.identificator = id;
+    }
+
+    public void randomizeData() {
+        if (!enabled) {
+            open = true;
+            temperature = 0;
+            return;
+        }
+        open = false;
+        Random random = new Random();
+        temperature = random.nextInt(18);
     }
 
     public void openClose() {
@@ -29,6 +43,7 @@ public class Fridge extends Device {
     }
 
     public void selectTemperature(int temperature) {
-        this.temperature = temperature;
+        if (temperature >= 0 && temperature <= 18)
+            this.temperature = temperature;
     }
 }

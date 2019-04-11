@@ -1,5 +1,7 @@
 package Devices;
 
+import java.util.Random;
+
 // Кондиціонер
 public class Conditioner extends Device {
     private boolean open = false;
@@ -32,19 +34,37 @@ public class Conditioner extends Device {
         this.identificator = id;
     }
 
+    public void randomizeData() {
+        if (!enabled) {
+            open = false;
+            temperature = 0;
+            flowSpeed = 0;
+            windAngle = 0;
+            return;
+        }
+        Random random = new Random();
+        open = true;
+        temperature = random.nextInt(37);
+        flowSpeed = random.nextInt(10) + 2;
+        windAngle = random.nextInt(90);
+    }
+
     public void openClose() {
         open = !open;
     }
 
     public void selectTemperature(int temperature) {
-        this.temperature = temperature;
+        if (temperature >= 0 && temperature <= 37)
+            this.temperature = temperature;
     }
 
     public void selectFlowSpeed(int flowSpeed) {
-        this.flowSpeed = flowSpeed;
+        if (flowSpeed >= 2 && flowSpeed <= 12)
+            this.flowSpeed = flowSpeed;
     }
 
     public void selectWindAngle(int windAngle) {
-        this.windAngle = windAngle;
+        if (windAngle >= 0 && windAngle <= 90)
+            this.windAngle = windAngle;
     }
 }
