@@ -31,10 +31,12 @@ public class Fridge extends Device {
         if (!enabled) {
             open = true;
             temperature = 0;
+            usingElectricity = 0;
             return;
         }
         open = false;
         Random random = new Random();
+        usingElectricity = random.nextFloat() * 250;
         temperature = random.nextInt(18);
     }
 

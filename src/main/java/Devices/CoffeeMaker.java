@@ -36,11 +36,12 @@ public class CoffeeMaker extends Device {
         if (!enabled) {
             coffeeType = 1;
             hasMilk = false;
+            usingElectricity = 0;
             return;
         }
         Random random = new Random();
         coffeeType = random.nextInt(5);
-
+        usingElectricity = random.nextFloat() * 250;
         if (sugarPercent == 0)
             sugarPercent = 100;
         sugarPercent -= 2;

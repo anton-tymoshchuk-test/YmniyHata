@@ -44,10 +44,12 @@ public class Washer extends Device {
             temperature = 0;
             washMode = 1;
             speed = 0;
+            usingElectricity = 0;
             return;
         }
         Random random = new Random();
         open = false;
+        usingElectricity = random.nextFloat() * 250;
         temperature = random.nextInt(20) + 10;
         washMode = random.nextInt(5);
         speed = random.nextInt(30) + 30;

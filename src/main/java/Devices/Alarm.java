@@ -31,9 +31,11 @@ public class Alarm extends Device {
         if (!enabled) {
             hours = 0;
             minutes = 0;
+            usingElectricity = 0;
             return;
         }
         Random random = new Random();
+        usingElectricity = random.nextFloat() * 250;
         hours = random.nextInt(24);
         minutes = random.nextInt(60);
     }

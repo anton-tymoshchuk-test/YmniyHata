@@ -14,12 +14,16 @@ public abstract class Device implements Serializable {
     //Історія використання енергії <unixtime,electricity>
     //protected Map<String,Float> history = new HashMap<String,Float>();
 
-    public String getID() {
+    public String getIdentificator() {
         return identificator;
     }
 
     public Long getLatestCloudUpdate() {
         return latestCloudUpdate;
+    }
+
+    public void setLatestCloudUpdate(Long latestCloudUpdate) {
+        this.latestCloudUpdate = latestCloudUpdate;
     }
 
     public String getName() {
@@ -30,7 +34,7 @@ public abstract class Device implements Serializable {
         return enabled;
     }
 
-    public float getElectiricty() {
+    public float getUsingElectricity() {
         return usingElectricity;
     }
 
@@ -39,9 +43,6 @@ public abstract class Device implements Serializable {
         enabled = !enabled;
     }
 
-    public void setLatestCloudUpdate(Long value) {
-        latestCloudUpdate = value;
-    }
     public void setUsingElectricity(float value) {
         usingElectricity = value;
     }

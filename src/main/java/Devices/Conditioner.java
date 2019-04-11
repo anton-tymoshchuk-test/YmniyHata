@@ -40,10 +40,12 @@ public class Conditioner extends Device {
             temperature = 0;
             flowSpeed = 0;
             windAngle = 0;
+            usingElectricity = 0;
             return;
         }
         Random random = new Random();
         open = true;
+        usingElectricity = random.nextFloat() * 250;
         temperature = random.nextInt(37);
         flowSpeed = random.nextInt(10) + 2;
         windAngle = random.nextInt(90);

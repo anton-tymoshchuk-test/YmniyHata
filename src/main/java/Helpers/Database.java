@@ -4,16 +4,12 @@ import Devices.Device;
 
 import java.sql.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class Database {
-    public static Connection conn;
-    public static Statement statement;
-    public static ResultSet resSet;
 
-    public static void connect() {
-        conn = null;
+    public static Connection connect() {
+        Connection conn = null;
         try {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e) {
@@ -21,33 +17,30 @@ public class Database {
         }
         try {
             conn = DriverManager.getConnection("jdbc:sqlite:YmniyHmara.s3db");
-            statement = conn.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void create() {
-        try {
-            connect();
-            statement = conn.createStatement();
-
+            Statement statement = conn.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS `Saves` (`ID` INTEGER PRIMARY KEY  AUTOINCREMENT ,`Content` BLOB,`UnixTime` TEXT,`DeviceID` TEXT);");
-            close();
+
+            //create();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return conn;
     }
 
-    public static void putSerializedDevice(byte[] array, String unixtime,String device_id) {
+    public static void putSerializedDevice(byte[] array, String unixtime, String device_id) {
+        Connection localconnection = connect();
+
         try {
+            Statement localstatement = localconnection.createStatement();
             String sql = "INSERT INTO `Saves` (`Content`,`UnixTime`,`DeviceID`) VALUES (?,?,?); ";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
+            PreparedStatement pstmt = localconnection.prepareStatement(sql);
             pstmt.setBytes(1, array);
             pstmt.setString(2, unixtime);
             pstmt.setString(3, device_id);
             pstmt.executeUpdate();
             pstmt.close();
+            localstatement.close();
+            localconnection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -63,40 +56,31 @@ public class Database {
 
     //Якщо передамо null то виведе всі сейви
     public static List<Device> getSaves(String ID) {
+        Connection localconnection = connect();
         List<Device> devices = new ArrayList<Device>();
         String query = "SELECT * FROM `Saves`";
-        if(ID != null)
+        if (ID != null)
             query += String.format(" Where `DeviceID` = %s", ID);
         System.out.println(query);
         try {
-            resSet = Database.statement.executeQuery(query);
-            while (resSet.next())
-                devices.add(SerializeHelper.deserializeDevice(resSet.getBytes("Content")));
+            Statement localstatement = localconnection.createStatement();
+            ResultSet result = localstatement.executeQuery(query);
+            while (result.next())
+                devices.add(SerializeHelper.deserializeDevice(result.getBytes("Content")));
+            localstatement.close();
+            localconnection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return devices;
     }
+
     //Передаємо список підключенних на данний момент девайсів, та знаходимо їхні сейви
-    public static List<Device> getLatestSaves(List<Device> connected_devices)
-    {
+    public static List<Device> getLatestSaves(List<Device> connected_devices) {
         List<Device> devices = new ArrayList<Device>();
-        for (Device device:connected_devices)
-            devices.add(Collections.max(getSaves(device.getID()), Comparator.comparing(dev -> dev.getLatestCloudUpdate())));
+        for (Device device : connected_devices)
+            devices.add(Collections.max(getSaves(device.getIdentificator()), Comparator.comparing(dev -> dev.getLatestCloudUpdate())));
 
         return devices;
-    }
-
-    public static void close() {
-        try {
-            if (conn != null)
-                conn.close();
-            if (statement != null)
-                statement.close();
-            if (resSet != null)
-                resSet.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }

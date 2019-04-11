@@ -28,9 +28,11 @@ public class Stove extends Device {
         if (!enabled) {
             open = false;
             temperature = 0;
+            usingElectricity = 0;
         }
         Random random = new Random();
         open = true;
+        usingElectricity = random.nextFloat() * 250;
         temperature = random.nextInt(400) + 100;
     }
 
