@@ -5,18 +5,25 @@ import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class Program extends Application {
     static List<Device> devices = new ArrayList<Device>() {{
@@ -67,23 +74,41 @@ public class Program extends Application {
 
     public void start(Stage primaryStage) throws Exception {
 
-        //DeviceStatistics.showStat(devices.get(0));
-        // создаем список объектов
         ObservableList<Device> people = FXCollections.observableArrayList(devices);
-        Label lbl = new Label();
         TableView<Device> table = new TableView<Device>(people);
-        table.setPrefWidth(250);
+        table.setPrefWidth(600);
         table.setPrefHeight(200);
 
-        // столбец для вывода имени
-        TableColumn<Device, String> nameColumn = new TableColumn<Device, String>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<Device, String>("name"));
-        table.getColumns().add(nameColumn);
+        javafx.scene.control.Button  DeEnergize = new Button("De-Energize");
+        DeEnergize.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                Helpers.Database.connect();
+                devices = Helpers.Database.getLatestSaves(devices);
+                Helpers.Database.close();
+                System.out.println("asdas");
+            }
+        });
 
-        // столбец для вывода возраста
+        TableColumn<Device, String> ID = new TableColumn<Device, String>("ID");
+        ID.setCellValueFactory(new PropertyValueFactory<Device, String>("identificator"));
+        table.getColumns().add(ID);
+
+        TableColumn<Device, String> DeviceName = new TableColumn<Device, String>("Name");
+        DeviceName.setCellValueFactory(new PropertyValueFactory<Device, String>("name"));
+        table.getColumns().add(DeviceName);
+
         TableColumn<Device, Boolean> ageColumn = new TableColumn<Device, Boolean>("Enabled");
         ageColumn.setCellValueFactory(new PropertyValueFactory<Device, Boolean>("enabled"));
         table.getColumns().add(ageColumn);
+
+        TableColumn<Device, Long> LastUpdate = new TableColumn<Device, Long>("Latest Cloud Update");
+        LastUpdate.setCellValueFactory(new PropertyValueFactory<Device, Long>("latestCloudUpdate"));
+        table.getColumns().add(LastUpdate);
+
+        TableColumn<Device, Float> UsingElectricity = new TableColumn<Device, Float>("Use Electricity");
+        UsingElectricity.setCellValueFactory(new PropertyValueFactory<Device, Float>("usingElectricity"));
+        table.getColumns().add(UsingElectricity);
+
 
         /*TableView.TableViewSelectionModel<Device> selectionModel = table.getSelectionModel();
         selectionModel.selectedItemProperty().addListener(new ChangeListener<Device>(){
@@ -92,9 +117,9 @@ public class Program extends Application {
             }
         });*/
 
-        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, lbl, table);
+        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10,DeEnergize, table);
 
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(root, 600, 250);
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("TableView in JavaFX");
