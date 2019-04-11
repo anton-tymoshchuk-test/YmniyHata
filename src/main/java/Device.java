@@ -1,13 +1,13 @@
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 public abstract class Device implements Serializable {
     String name = null;
     boolean enabled = false;
     float usingElectricity = 0;
     //Історія використання енергії
-    List<Float> history = new ArrayList<Float>();
+    Map<String,Float> history = new HashMap<String,Float>();
 
     public String getName() {
         return name;
@@ -18,8 +18,5 @@ public abstract class Device implements Serializable {
     public void toggleEnabled() {
         enabled = !enabled;
     }
-    void updateHistory()
-    {
-        history.add(usingElectricity);
-    }
+    void updateHistory(String unixtime){ history.put(unixtime,usingElectricity); }
 }

@@ -24,7 +24,7 @@ public class Program {
 
                 Long unixtime = System.currentTimeMillis() / 1000L;
                 for (Device device : devices) {
-                    device.updateHistory();
+                    device.updateHistory(unixtime.toString());
                     System.out.println(device.name + " " + unixtime.toString());
                     //Перетворюємо наш об'єкт в массив байтів, та підгружаємо його в "облако"
                     Database.putSerializedDevice(SerializeHelper.serializeDevice(device), unixtime.toString());
