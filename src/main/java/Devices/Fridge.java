@@ -13,7 +13,7 @@ public class Fridge extends Device {
     }
 
     public Fridge() {
-        name = "Devices.Fridge";
+        name = "Fridge";
     }
 
     public void openClose() {

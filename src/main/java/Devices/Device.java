@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 public abstract class Device implements Serializable {
-    protected String name = null;
+    protected String name = "Unknown";
     protected boolean enabled = false;
     protected float usingElectricity = 0;
     //Історія використання енергії <unixtime,electricity>

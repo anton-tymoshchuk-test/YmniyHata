@@ -13,7 +13,7 @@ public class Alarm extends Device {
     }
 
     public Alarm() {
-        name = "Devices.Alarm";
+        name = "Alarm";
     }
 
     public void setTime(int hours, int minutes) {
