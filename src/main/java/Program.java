@@ -1,6 +1,7 @@
 import Helpers.Database;
 import Helpers.SerializeHelper;
 import Devices.*;
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,6 +51,7 @@ public class Program extends Application {
                     Database.putSerializedDevice(SerializeHelper.serializeDevice(device), unixtime.toString(), device.getIdentificator());
 
                     devicesObserb = FXCollections.observableArrayList(devices);
+                    table.setItems(devicesObserb);
                     table.refresh();
                 }
             }
@@ -59,19 +61,19 @@ public class Program extends Application {
 
     public void start(Stage primaryStage) throws Exception {
         table = createTable();
-
-        javafx.scene.control.Button DeEnergize = new Button("Вимкнути світло");
-        DeEnergize.setOnAction(new EventHandler<ActionEvent>() {
+        JFXButton button = new JFXButton("Вимкнути світло");
+        button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 //Database.connect();
                 devices = Database.getLatestSaves(devices);
                 devicesObserb = FXCollections.observableArrayList(devices);
+                table.setItems(devicesObserb);
                 table.refresh();
                 //Database.close();
             }
         });
-        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, DeEnergize, table);
+        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, button, table);
 
         Scene scene = new Scene(root, 600, 250);
 
