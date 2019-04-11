@@ -1,3 +1,5 @@
+package Devices;
+
 public class Alarm extends Device {
     private int hours = 0;
     private int minutes = 0;
@@ -11,7 +13,7 @@ public class Alarm extends Device {
     }
 
     public Alarm() {
-        name = "Alarm";
+        name = "Devices.Alarm";
     }
 
     public void setTime(int hours, int minutes) {

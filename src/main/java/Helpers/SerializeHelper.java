@@ -1,3 +1,7 @@
+package Helpers;
+
+import Devices.Device;
+
 import java.io.*;
 
 public class SerializeHelper {

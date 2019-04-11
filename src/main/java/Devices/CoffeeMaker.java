@@ -1,3 +1,5 @@
+package Devices;
+
 public class CoffeeMaker extends Device {
     private int coffeeType = 1;
     private int sugarPercent = 0;

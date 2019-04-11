@@ -1,4 +1,4 @@
-import java.awt.*;
+package Devices;
 
 public class Fridge extends Device {
     private boolean open = false;
@@ -13,7 +13,7 @@ public class Fridge extends Device {
     }
 
     public Fridge() {
-        name = "Fridge";
+        name = "Devices.Fridge";
     }
 
     public void openClose() {
