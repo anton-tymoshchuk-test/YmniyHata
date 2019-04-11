@@ -31,7 +31,7 @@ public class Database {
         try {
             connect();
             statement = conn.createStatement();
-            //Date date = Date.from( Instant.ofEpochSecond( timeStamp ) );
+
             statement.execute("CREATE TABLE IF NOT EXISTS `Saves` (`ID` INTEGER PRIMARY KEY  AUTOINCREMENT ,`Content` BLOB,`UnixTime` TEXT,`DeviceID` TEXT);");
             close();
         } catch (SQLException e) {

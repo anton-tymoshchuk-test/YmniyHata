@@ -4,10 +4,7 @@ import Devices.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class Program extends Application {
     static List<Device> devices = new ArrayList<Device>() {{
@@ -15,7 +12,7 @@ public class Program extends Application {
         add(new Alarm("89125125"));
         add(new CoffeeMaker("12512567"));
     }};
-
+    static Random random = new Random();
     public static void main(String[] args) {
         Database.create();
         /*for (Devices.Device device: devices){
@@ -32,6 +29,7 @@ public class Program extends Application {
                 //System.out.println("UPDATING IN " + unixtime);
                 for (Device device : devices) {
                     //device.updateHistory(unixtime.toString());
+                    device.setUsingElectricity(random.nextFloat() * 250);
                     device.setLatestCloudUpdate(unixtime);
                     System.out.println(device.getName() + " " + unixtime.toString() + " " + device.getID());
                     //Перетворюємо наш об'єкт в массив байтів, та підгружаємо його в "облако"

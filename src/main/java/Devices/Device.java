@@ -41,6 +41,9 @@ public abstract class Device implements Serializable {
     public void setLatestCloudUpdate(Long value) {
         latestCloudUpdate = value;
     }
+    public void setUsingElectricity(float value) {
+        usingElectricity = value;
+    }
 
     //public void updateHistory(String unixtime){ history.put(unixtime,usingElectricity); }
 }
