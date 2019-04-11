@@ -16,7 +16,7 @@ public class DeviceStatistics {
     public static void showStat(Device device)
     {
         Stage stage = new Stage();
-        stage.setTitle(device.getName());
+        stage.setTitle(device.getName() + " - Statistics");
         //defining the axes
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
@@ -24,17 +24,10 @@ public class DeviceStatistics {
         //creating the chart
         final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
 
-        lineChart.setTitle("My sample chart");
+        lineChart.setTitle(device.getName() + " - Statistics");
         //defining a series
         XYChart.Series series = new XYChart.Series();
-        series.setName("Test float data");
-        //populating the series with data
-        //And assumption has been made that your Date[] and float[] arrays are
-        //of the same size and have one to one mapping.
-        //Date date = Date.from( Instant.ofEpochSecond( timeStamp ) );
-        //Date[] dates = ...  // here is your Date[] array
-        //float[] someData = ... // here is your float[] array
-
+        series.setName("Power per hour");
         Database.connect();
         List<Device> saves = Database.getSaves(device.getID());
         Database.close();
