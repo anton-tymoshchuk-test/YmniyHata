@@ -3,6 +3,7 @@ package Devices;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Random;
 
 public abstract class Device implements Serializable {
     protected String identificator;
@@ -44,6 +45,15 @@ public abstract class Device implements Serializable {
     public void setUsingElectricity(float value) {
         usingElectricity = value;
     }
-
+    public void randomizeData()
+    {
+        if(!enabled)
+        {
+            usingElectricity = 0;
+            return;
+        }
+        Random random = new Random();
+        usingElectricity = random.nextFloat() * 250;//max value  250
+    }
     //public void updateHistory(String unixtime){ history.put(unixtime,usingElectricity); }
 }
