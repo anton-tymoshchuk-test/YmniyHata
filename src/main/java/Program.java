@@ -2,6 +2,9 @@ import Helpers.Database;
 import Helpers.SerializeHelper;
 import Devices.*;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.util.*;
@@ -13,6 +16,9 @@ public class Program extends Application {
         add(new CoffeeMaker("12512567"));
     }};
     static Random random = new Random();
+
+
+
     public static void main(String[] args) {
         Database.create();
         /*for (Devices.Device device: devices){
@@ -52,7 +58,15 @@ public class Program extends Application {
 
     public void start(Stage primaryStage) throws Exception {
 
-        DeviceStatistics.showStat(devices.get(0));
-
+        //DeviceStatistics.showStat(devices.get(0));
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HataTableViewFormFXML.fxml"));
+            AnchorPane root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 }
