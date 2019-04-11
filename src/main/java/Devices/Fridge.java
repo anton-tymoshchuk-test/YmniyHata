@@ -12,8 +12,16 @@ public class Fridge extends Device {
         return temperature;
     }
 
-    public Fridge() {
+    private Fridge(){}
+    public Fridge(String id)
+    {
         name = "Fridge";
+        this.identificator = id;
+    }
+    public Fridge(String id,String name)
+    {
+        this.name = name;
+        this.identificator = id;
     }
 
     public void openClose() {

@@ -11,9 +11,9 @@ import java.util.TimerTask;
 
 public class Program extends Application {
     static List<Device> devices = new ArrayList<Device>() {{
-        add(new Fridge());
-        add(new Alarm());
-        add(new CoffeeMaker());
+        add(new Fridge("612616124"));
+        add(new Alarm("89125125"));
+        add(new CoffeeMaker("12512567"));
     }};
 
     public static void main(String[] args) {
@@ -29,19 +29,23 @@ public class Program extends Application {
                 Database.connect();
 
                 Long unixtime = System.currentTimeMillis() / 1000L;
+                //System.out.println("UPDATING IN " + unixtime);
                 for (Device device : devices) {
-                    device.updateHistory(unixtime.toString());
-                    System.out.println(device.getName() + " " + unixtime.toString());
+                    //device.updateHistory(unixtime.toString());
+                    device.setLatestCloudUpdate(unixtime);
+                    System.out.println(device.getName() + " " + unixtime.toString() + " " + device.getID());
                     //Перетворюємо наш об'єкт в массив байтів, та підгружаємо його в "облако"
-                    Database.putSerializedDevice(SerializeHelper.serializeDevice(device), unixtime.toString());
+                    Database.putSerializedDevice(SerializeHelper.serializeDevice(device), unixtime.toString(),device.getID());
                 }
                 //Видаляємо старі данні
-                Database.clearOldContent(unixtime.toString());
+                //Database.clearOldContent(unixtime.toString());
                 Database.close();
-
-                /*Helpers.Database.connect();
-                devices = Helpers.Database.getDevices();
-                Helpers.Database.close();*/
+                /*System.out.println("RESTORED VALUES");
+                Helpers.Database.connect();
+                devices = Helpers.Database.getLatestSaves(devices);
+                Helpers.Database.close();
+                for (Device device : devices)
+                    System.out.println(device.getName() + " " + unixtime.toString() + " " + device.getID());*/
             }
         }, 5000, 5000);
 

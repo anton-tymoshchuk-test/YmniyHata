@@ -12,8 +12,16 @@ public class Alarm extends Device {
         return minutes;
     }
 
-    public Alarm() {
+    private Alarm(){}
+    public Alarm(String id)
+    {
         name = "Alarm";
+        this.identificator = id;
+    }
+    public Alarm(String id,String name)
+    {
+        this.name = name;
+        this.identificator = id;
     }
 
     public void setTime(int hours, int minutes) {

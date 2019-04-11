@@ -17,8 +17,16 @@ public class CoffeeMaker extends Device {
         return hasMilk;
     }
 
-    public CoffeeMaker() {
-        name = "Coffee maker";
+    private CoffeeMaker(){}
+    public CoffeeMaker(String id)
+    {
+        name = "CoffeeMaker";
+        this.identificator = id;
+    }
+    public CoffeeMaker(String id,String name)
+    {
+        this.name = name;
+        this.identificator = id;
     }
 
     public String makeCoffie(int coffeeType, int sugarPercent, boolean hasMilk) {
